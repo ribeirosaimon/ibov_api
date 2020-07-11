@@ -13,8 +13,8 @@ def hello():
 def stocks(stock):
     try:
         return scrap_stocks(stock)
-    except:
-        return f'{error} not found'
+    except Exception as e:
+        return f'{e}'
 
 if __name__ == "__main__":
     app.run()
