@@ -28,7 +28,7 @@ def scrap_stocks(stock):
         td_stock.append(information.text)
     td_stock[6] = td_stock[6].replace(',','')
     volume = float(td_stock[6])
-
+    #return new Dict
     return {
             f'{stock}':{
             'currecy':'R$',
