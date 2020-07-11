@@ -14,7 +14,7 @@ def stocks(stock):
     try:
         return scrap_stocks(stock)
     except:
-        return f'{stock} not found'
+        return f'{error} not found'
 
 if __name__ == "__main__":
     app.run()
