@@ -27,7 +27,7 @@ def scrap_stocks(stock):
             tr_soup_today = tr_soup
             for td in tr_soup_today:
                 td_stock.append(td.text)
-
+    time.sleep(0.2)
     if td_stock[6] == '-':
         td_stock[6] = 0
     else:
