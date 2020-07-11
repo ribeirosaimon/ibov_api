@@ -1,1 +1,1 @@
-web: gunisscorn app:app --timeout 30
+web: gunicorn app:app --timeout 0
