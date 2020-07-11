@@ -37,7 +37,7 @@ def scrap_stocks(stock):
             'high':float(td_stock[2]),
             'low':float(td_stock[3]),
             'close':float(td_stock[4]),
-            'adj_close':float(td_stock[5])
+            'adj_close':float(td_stock[5]),
             'vol':volume,
             'avg_vol':vol_medio}
         }
