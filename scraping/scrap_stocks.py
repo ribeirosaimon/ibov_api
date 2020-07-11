@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import json
 import urllib.parse
 from scraping.date_tratament import date_treatment
-
+#from date_tratament import date_treatment
 
 def scrap_stocks(stock):
     td_stock = []
@@ -26,5 +26,15 @@ def scrap_stocks(stock):
     #all information for the last weekday
     for information in scrapingtoday:
         td_stock.append(information.text)
-    print(td_stock)
-    return {f'{stock}': td_stock}
+    td_stock[6] = td_stock[6].replace(',','')
+    volume = float(td_stock[6])
+    dict_stock = {'stock':stock,
+        'date':td_stock[0],
+        'open':float(td_stock[1]),
+        'high':float(td_stock[2]),
+        'low':float(td_stock[3]),
+        'close':float(td_stock[4]),
+        'volume':volume,
+        'volume medio':vol_medio
+    }
+    return dict_stock
