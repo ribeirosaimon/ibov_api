@@ -8,7 +8,7 @@ from scraping.date_tratament import date_treatment
 
 def scrap_stocks(stock):
     td_stock = []
-    date_treatment()
+    data = date_treatment()
     # make a scraping for averange volume in YAHOO FINANCE
     r = requests.get(f'https://finance.yahoo.com/quote/{stock}.SA')
     soup = bs4.BeautifulSoup(r.text, 'lxml')
@@ -21,10 +21,25 @@ def scrap_stocks(stock):
     #The TR is has to be for today
     for tr_soup in tbody_soup:
         td_soup = tr_soup.find('span')
-        if td_soup.text == date_treatment():
-            scrapingtoday = tr_soup
-    #all information for the last weekday
-    for information in scrapingtoday:
-        td_stock.append(information.text)
-    print(td_stock)
-    return {f'{stock}': td_stock}
+        if td_soup.text != data:
+            pass
+        else:
+            tr_soup_today = tr_soup
+    for td in tr_soup_today:
+        td_stock.append(td.text)
+
+    if td_stock[6] == '-':
+        td_stock[6] = 0
+    else:
+        td_stock[6] = td_stock[6].replace(',','')
+        td_stock[6] = float(td_stock[6])
+    dict_stock = {'stock':stock,
+        'date':td_stock[0],
+        'open':float(td_stock[1]),
+        'high':float(td_stock[2]),
+        'low':float(td_stock[3]),
+        'close':float(td_stock[4]),
+        'volume':td_stock[6],
+        'volume medio':vol_medio
+    }
+    return dict_stock

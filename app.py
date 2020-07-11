@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from scraping.date_tratament import date_treatment
 from scraping.scrap_stocks import scrap_stocks
 
 app = Flask(__name__)
@@ -15,4 +14,4 @@ def stocks(stock):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

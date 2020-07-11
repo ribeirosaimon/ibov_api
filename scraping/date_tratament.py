@@ -1,6 +1,7 @@
 from datetime import datetime
 
 def date_treatment():
+    weekday = datetime.today().weekday()
     now = datetime.now()
     year = now.year
     month = now.month
@@ -30,6 +31,12 @@ def date_treatment():
     if month == 12:
         month = 'Dez'
 
+    if weekday == 5:
+        day = day - 1
+    if weekday == 6:
+        day = day - 2
+
     if len(str(day)) == 1:
         day = f'0{day}'
+
     return f'{month} {day}, {year}'
