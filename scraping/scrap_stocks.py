@@ -25,8 +25,8 @@ def scrap_stocks(stock):
         td_soup = tr_soup.find('span')
         if td_soup.text == data:
             tr_soup_today = tr_soup
-    for td in tr_soup_today:
-        td_stock.append(td.text)
+            for td in tr_soup_today:
+                td_stock.append(td.text)
 
     if td_stock[6] == '-':
         td_stock[6] = 0
