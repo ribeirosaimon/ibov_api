@@ -2,6 +2,7 @@ import bs4
 import requests
 from bs4 import BeautifulSoup
 import json
+import time
 import urllib.parse
 from scraping.date_tratament import date_treatment
 
@@ -15,6 +16,7 @@ def scrap_stocks(stock):
     soup = soup.find('td',{'data-test':'AVERAGE_VOLUME_3MONTH-value'})
     vol_medio = float(soup.text.replace(',',''))
     # make a scraping for stock price in YAHOO FINANCE/stock
+    time.sleep(0.5)
     r = requests.get(f'https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA')
     soup = bs4.BeautifulSoup(r.text, 'lxml')
     tbody_soup = soup.find('tbody')
