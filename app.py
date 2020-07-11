@@ -10,8 +10,11 @@ def hello():
 
 @app.route("/stock/<stock>", methods=['GET'])
 def stocks(stock):
-    return scrap_stocks(stock)
+    try:
+        return scrap_stocks(stock)
+    except:
+        return f'{stock} not found or a internal error'
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
