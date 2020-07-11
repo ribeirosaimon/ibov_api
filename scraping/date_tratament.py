@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 def date_treatment():
     weekday = datetime.today().weekday()
     now = datetime.now()
@@ -40,3 +41,20 @@ def date_treatment():
         day = f'0{day}'
 
     return f'{month} {day}, {year}'
+
+date = 'Jul 10, 2020'
+
+def dataIso():
+    weekday = datetime.today().weekday()
+    now = datetime.now()
+    year = now.year
+    month = now.month
+    day = now.day
+
+    if weekday == 5:
+        day = day - 1
+    if weekday == 6:
+        day = day - 2
+
+
+    return f'{year}:{month}:{day}'

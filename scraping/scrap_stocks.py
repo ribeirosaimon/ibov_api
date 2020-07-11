@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import urllib.parse
-from scraping.date_tratament import date_treatment
+from scraping.date_tratament import date_treatment, dataIso
 #from date_tratament import date_treatment
 
 def scrap_stocks(stock):
@@ -28,13 +28,15 @@ def scrap_stocks(stock):
         td_stock.append(information.text)
     td_stock[6] = td_stock[6].replace(',','')
     volume = float(td_stock[6])
+
     return {
             f'{stock}':{
-            'date':td_stock[0],
+            'currecy':'R$',
+            'date':dataIso(),
             'open':float(td_stock[1]),
             'high':float(td_stock[2]),
             'low':float(td_stock[3]),
             'close':float(td_stock[4]),
-            'volume':volume,
-            'volume medio':vol_medio}
+            'vol':volume,
+            'avg_vol':vol_medio}
         }
