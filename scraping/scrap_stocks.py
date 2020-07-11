@@ -21,7 +21,9 @@ def scrap_stocks(stock):
     #The TR is has to be for today
     for tr_soup in tbody_soup:
         td_soup = tr_soup.find('span')
-        if td_soup.text == data:
+        if td_soup.text != data:
+            pass
+        else:
             tr_soup_today = tr_soup
     for td in tr_soup_today:
         td_stock.append(td.text)
