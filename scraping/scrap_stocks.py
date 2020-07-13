@@ -7,6 +7,8 @@ from scraping.date_tratament import date_treatment, dataIso
 #from date_tratament import date_treatment
 
 def scrap_stocks(stock):
+    information = ''
+    scrapingtoday = ''
     td_stock = []
     date_treatment()
     # make a scraping for averange volume in YAHOO FINANCE
@@ -21,15 +23,13 @@ def scrap_stocks(stock):
     #The TR is has to be for today
     for tr_soup in tbody_soup:
         td_soup = tr_soup.find('span')
-        if td_soup.text != date_treatment():
+        if td_soup.text == date_treatment():
             scrapingtoday = tr_soup
-    #all information for the last weekday
     for information in scrapingtoday:
         td_stock.append(information.text)
-
+    #all information for the last weekday
     if td_stock[6] == '-':
         td_stock[6] = '0'
-
     td_stock[6] = td_stock[6].replace(',','')
     volume = float(td_stock[6])
     #return new Dict
@@ -45,5 +45,5 @@ def scrap_stocks(stock):
             'vol':volume,
             'avg_vol':vol_medio}
             }
-    print(acao)
+
     return acao
