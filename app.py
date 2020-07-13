@@ -11,7 +11,9 @@ def hello():
 @app.route("/<stock>", methods=['GET'])
 def stocks(stock):
     try:
-        return scrap_stocks(f'{stock}')
+        response = scrap_stocks(stock)
+        return {response}
+
     except Exception as e:
         return e
 
