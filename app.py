@@ -8,12 +8,12 @@ def hello():
     return "Hello, World!"
 
 
-@app.route("/stock/<stock>", methods=['GET'])
+@app.route("/<stock>", methods=['GET'])
 def stocks(stock):
-#try:
-    return scrap_stocks(stock)
-#except Exception as e:
-    #return f'{stock} not found or a internal error' + e
+    try:
+        return scrap_stocks(stock)
+    except Exception as e:
+        return e
 
 
 if __name__ == "__main__":
