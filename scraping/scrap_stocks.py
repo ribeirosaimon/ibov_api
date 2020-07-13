@@ -21,7 +21,7 @@ def scrap_stocks(stock):
     #The TR is has to be for today
     for tr_soup in tbody_soup:
         td_soup = tr_soup.find('span')
-        if td_soup.text == date_treatment():
+        if td_soup.text != date_treatment():
             scrapingtoday = tr_soup
     #all information for the last weekday
     for information in scrapingtoday:
@@ -33,7 +33,7 @@ def scrap_stocks(stock):
     td_stock[6] = td_stock[6].replace(',','')
     volume = float(td_stock[6])
     #return new Dict
-    return {
+    acao = {
             f'{stock}':{
             'currecy':'R$',
             'date':dataIso(),
@@ -44,4 +44,6 @@ def scrap_stocks(stock):
             'adj_close':float(td_stock[5]),
             'vol':volume,
             'avg_vol':vol_medio}
-        }
+            }
+    print(acao)
+    return acao
