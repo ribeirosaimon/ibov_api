@@ -12,8 +12,8 @@ def hello():
 def stocks(stock):
     try:
         return scrap_stocks(stock)
-    except:
-        return f'{stock} not found or a internal error'
+    except Exception as e:
+        return f'{stock} not found or a internal error' + e
 
 
 if __name__ == "__main__":
