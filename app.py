@@ -12,7 +12,7 @@ def hello():
 def stocks(stock):
     try:
         response = scrap_stocks(stock)
-        return {response}
+        return response, 200
 
     except Exception as e:
         return e

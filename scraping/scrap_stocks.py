@@ -26,13 +26,15 @@ def scrap_stocks(stock):
     #all information for the last weekday
     for information in scrapingtoday:
         td_stock.append(information.text)
+
     if td_stock[6] == '-':
         td_stock[6] = '0'
 
     td_stock[6] = td_stock[6].replace(',','')
     volume = float(td_stock[6])
     #return new Dict
-    dict_resp =f'{stock}':{
+    return {
+            f'{stock}':{
             'currecy':'R$',
             'date':dataIso(),
             'open':float(td_stock[1]),
@@ -42,4 +44,4 @@ def scrap_stocks(stock):
             'adj_close':float(td_stock[5]),
             'vol':volume,
             'avg_vol':vol_medio}
-    return dict_resp
+        }
