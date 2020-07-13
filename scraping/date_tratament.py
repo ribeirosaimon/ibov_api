@@ -36,15 +36,11 @@ def date_treatment():
         day = day - 1
     if weekday == 6:
         day = day - 2
-    if weekday ==0:
-        day = day -3
 
     if len(str(day)) == 1:
         day = f'0{day}'
 
     return f'{month} {day}, {year}'
-
-date = 'Jul 10, 2020'
 
 def dataIso():
     weekday = datetime.today().weekday()
