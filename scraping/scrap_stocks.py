@@ -26,10 +26,11 @@ def scrap_stocks(stock):
     #all information for the last weekday
     for information in scrapingtoday:
         td_stock.append(information.text)
+    print(td_stock)
     if td_stock[6] == '-':
-        td_stock[6] = 0
-    else:
-        td_stock[6] = td_stock[6].replace(',','')
+        td_stock[6] = '0'
+
+    td_stock[6] = td_stock[6].replace(',','')
     volume = float(td_stock[6])
     #return new Dict
     return {
