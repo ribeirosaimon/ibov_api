@@ -10,10 +10,10 @@ def hello():
 
 @app.route("/stock/<stock>", methods=['GET'])
 def stocks(stock):
-    try:
-        return scrap_stocks(stock)
-    except Exception as e:
-        return f'{stock} not found or a internal error' + e
+#try:
+    return scrap_stocks(stock)
+#except Exception as e:
+    #return f'{stock} not found or a internal error' + e
 
 
 if __name__ == "__main__":
