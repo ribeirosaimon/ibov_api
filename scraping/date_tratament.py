@@ -7,6 +7,7 @@ def date_treatment():
     year = now.year
     month = now.month
     day = now.day
+    hora_do_dia = int(datetime.now().strftime('%H'))
     if month == 1:
         month = 'Jan'
     if month == 2:
@@ -37,10 +38,15 @@ def date_treatment():
     if weekday == 6:
         day = day - 2
 
+    if hora_do_dia < 10:
+        day = day - 1
+
     if len(str(day)) == 1:
         day = f'0{day}'
 
     return f'{month} {day}, {year}'
+
+
 
 def dataIso():
     weekday = datetime.today().weekday()
