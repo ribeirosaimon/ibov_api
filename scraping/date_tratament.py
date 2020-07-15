@@ -54,6 +54,8 @@ def dataIso():
     year = now.year
     month = now.month
     day = now.day
+    hour = now.strftime('%H')
+
 
     if weekday == 5:
         day = day - 1
@@ -61,4 +63,4 @@ def dataIso():
         day = day - 2
 
 
-    return f'{year}:{month}:{day}'
+    return f'{year}:{month}:{day}:{now}'
