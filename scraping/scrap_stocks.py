@@ -6,7 +6,7 @@ import urllib.parse
 from scraping.date_tratament import date_treatment, dataIso
 #from date_tratament import date_treatment
 
-def scrap_stocks(stock):
+def Stock(stock):
     information = ''
     scrapingtoday = ''
     td_stock = []
