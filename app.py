@@ -7,10 +7,8 @@ api = Api(app)
 
 class get_stock(Resource):
     def get(self, stock):
-        try:
-            return scrap_stocks(stock)
-        except Exception as e:
-            return e
+        return scrap_stocks(stock)
+
 api.add_resource(get_stock,'/<string:stock>')
 
 if __name__ == "__main__":
