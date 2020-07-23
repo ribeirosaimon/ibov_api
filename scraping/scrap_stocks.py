@@ -33,20 +33,16 @@ def scrap_stocks(stock):
     td_stock[6] = td_stock[6].replace(',','')
     volume = float(td_stock[6])
     #return new Dict
-    try:
-        acao = {
-                f'{stock}':{
-                'currecy':'R$',
-                'date':dataIso(),
-                'open':float(td_stock[1]),
-                'high':float(td_stock[2]),
-                'low':float(td_stock[3]),
-                'close':float(td_stock[4]),
-                'adj_close':float(td_stock[5]),
-                'vol':volume,
-                'avg_vol':vol_medio}
-                }
-    except:
-        acao = {'Problema':'Interno'}
-
+    acao = {
+            f'{stock}':{
+            'currecy':'R$',
+            'date':dataIso(),
+            'open':float(td_stock[1]),
+            'high':float(td_stock[2]),
+            'low':float(td_stock[3]),
+            'close':float(td_stock[4]),
+            'adj_close':float(td_stock[5]),
+            'vol':volume,
+            'avg_vol':vol_medio}
+            }
     return acao
