@@ -8,9 +8,8 @@ api = Api(app)
 
 class get_stock(Resource):
     def get(self, stock):
+        self.stock = stock
         return jsonify(tratamento_acao(stock))
-
-
 api.add_resource(get_stock,'/<string:stock>')
 
 

@@ -14,7 +14,7 @@ def soup_url(stock):
     browser = BeautifulSoup(get(start_url).content, "html.parser")
     time.sleep(0.5)
     base = browser.findAll('tr')
-    span_in_line = find_line_by_date(base, date_treatment(), 'td').find('span')
+    span_in_line = find_line_by_date(base, date_treatment(), 'td').find_all('span')
     data = [element.text for element in span_in_line]
     return data
 
