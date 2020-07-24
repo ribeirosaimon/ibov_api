@@ -10,6 +10,5 @@ class get_stock(Resource):
         return Stock(stock)
 
 api.add_resource(get_stock,'/<string:stock>')
-
 if __name__ == "__main__":
     app.run()

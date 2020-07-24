@@ -63,4 +63,4 @@ def dataIso():
         day = day - 2
 
 
-    return f'{year}:{month}:{day}:{now}'
+    return f'{year}:{month}:{day}'
