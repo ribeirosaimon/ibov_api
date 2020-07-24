@@ -1,6 +1,6 @@
 import unittest
+from scraping.scraping_stock import tratamento_acao
 from scraping.date_tratament import date_treatment
-from scraping_stock import tratamento_acao
 
 stock = 'movi3'
 acao = tratamento_acao(stock)

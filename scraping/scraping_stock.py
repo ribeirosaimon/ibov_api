@@ -1,6 +1,7 @@
-import json
 from scraping.soup import soup_url, avg_vol
 from scraping.date_tratament import dataIso
+
+
 
 def tratamento_acao(stock):
     acao = soup_url(stock)
@@ -25,4 +26,4 @@ def tratamento_acao(stock):
         'avg_vol':volume_medio
         }
     }
-    return json(json_retorno)
+    return json_retorno
