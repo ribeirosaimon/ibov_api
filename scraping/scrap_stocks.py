@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import urllib.parse
-from scraping.date_tratament import date_treatment, dataIso
+from date_tratament import date_treatment, dataIso
 #from date_tratament import date_treatment
 
 def Stock(stock):
@@ -46,3 +46,6 @@ def Stock(stock):
             'avg_vol':vol_medio}
             }
     return acao
+
+a = Stock('movi3')
+print(a)

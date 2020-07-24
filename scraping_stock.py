@@ -2,29 +2,43 @@ import bs4
 import requests
 from bs4 import BeautifulSoup
 import json
+import time
 import urllib.parse
 from scraping.date_tratament import date_treatment, dataIso
 
 
 
 class Stock:
-    def __init__(self, avg_vol):
+    def __init__(self, stock):
+        self.stock = stock
 
+    def scraping_site(stock):
+        information = ''
+        scrapingtoday = ''
+        td_stock = []
+        # make a scraping for stock price in YAHOO FINANCE/stock
+        r = requests.get(f'https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA')
+        soup = bs4.BeautifulSoup(r.text, 'lxml')
+        tbody_soup = soup.find('tbody')
+        #The TR is has to be for today
+        for tr_soup in tbody_soup:
+            td_soup = tr_soup.find('span')
+            print(td_soup)
 
     def avg_vol(stock):
-        avg_vol = None
         r = requests.get(f'https://finance.yahoo.com/quote/{stock}.SA')
         soup = bs4.BeautifulSoup(r.text, 'lxml')
         soup = soup.find('td',{'data-test':'AVERAGE_VOLUME_3MONTH-value'})
-        if avg_vol != None:
+        try:
             avg_vol = float(soup.text.replace(',',''))
-        else:
-            avg_vol = 0.0
+        except:
+            avg_vol = 0
         return avg_vol
 
 
-acao  = Stock('movi3')
 
+acao = Stock('MOVI3')
+acao.scraping_site()
 '''
 
 
@@ -43,6 +57,7 @@ def Stock(stock):
     soup = bs4.BeautifulSoup(r.text, 'lxml')
     tbody_soup = soup.find('tbody')
     #The TR is has to be for today
+
     for tr_soup in tbody_soup:
         td_soup = tr_soup.find('span')
         if td_soup.text == date_treatment():
