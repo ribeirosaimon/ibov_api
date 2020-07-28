@@ -64,3 +64,14 @@ def dataIso():
 
 
     return f'{year}:{month}:{day}'
+
+
+def date_tweet_sentiment():
+    weekday = datetime.today().weekday()
+    now = datetime.now()
+    year = now.year
+    month = now.month - 1
+    day = now.day
+    hour = now.strftime('%H')
+
+    return f'{year}-{month}-{day}'
