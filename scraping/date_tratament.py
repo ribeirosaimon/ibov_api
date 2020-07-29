@@ -66,7 +66,7 @@ def dataIso():
     return f'{year}:{month}:{day}'
 
 
-def date_tweet_sentiment():
+def date_tweet_sentiment_mes_anterior():
     weekday = datetime.today().weekday()
     now = datetime.now()
     year = now.year
