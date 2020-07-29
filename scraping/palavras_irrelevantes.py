@@ -22,4 +22,4 @@ PALAVRAS_IRRELEVANTES = ['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', 
 'seriam', 'tenho', 'tem', 'temos', 'tém', 'tinha', 'tínhamos', 'tinham', 'tive',
 'teve', 'tivemos', 'tiveram', 'tivera', 'tivéramos', 'tenha', 'tenhamos', 'tenham',
 'tivesse', 'tivéssemos', 'tivessem', 'tiver', 'tivermos', 'tiverem', 'terei', 'terá',
-'teremos', 'terão', 'teria', 'teríamos', 'teriam','https://','http://']
+'teremos', 'terão', 'teria', 'teríamos', 'teriam','']

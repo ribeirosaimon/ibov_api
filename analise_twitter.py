@@ -2,6 +2,10 @@ import tweepy
 from textblob import TextBlob
 from scraping.date_tratament import date_tweet_sentiment
 from scraping.string_tratament import tratamento_texto
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import matplotlibs
+
 
 #Tokens de acesso
 consumer_key= 'xKz9EpTCHhzP3HVTwFj4dS84W'
@@ -25,4 +29,12 @@ lista_de_tweets = []
 for tweet in tweets_do_dia:
     lista_de_tweets.append(tratamento_texto(tweet.text))
 
-print(lista_de_tweets)
+todas_palavras = ' '.join(lista_de_tweets)
+
+nuvem_palavras = WordCloud(width = 800, height = 500, max_font_size = 110,
+                          collocations = False).generate(todas_palavras)
+
+plt.figure(figsize= (10, 7))
+plt.imshow(nuvem_palavras, interpolation = 'bilinear')
+plt.axis('off')
+plt.show()
