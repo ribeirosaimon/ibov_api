@@ -1,6 +1,5 @@
 from nltk import tokenize
 import matplotlib.pyplot as plt
-from wordcloud import WordCloud
 from scraping.palavras_irrelevantes import PALAVRAS_IRRELEVANTES
 
 def tratamento_texto(texto):
