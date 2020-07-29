@@ -29,7 +29,7 @@ class MyTest(unittest.TestCase):
         self.assertIsInstance(acao[stock]['adj_close'], float)
 
     def testando_a_data(self):
-        self.assertEqual(date_treatment(), 'Jul 24, 2020')
+        self.assertEqual(date_treatment(), 'Jul 29, 2020')
 
 
 if __name__ == '__main__':
