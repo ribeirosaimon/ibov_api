@@ -6,11 +6,33 @@ from scraping.date_tratament import dataIso
 def tratamento_acao(stock):
     acao = soup_url(stock)
     data = dataIso()
-    abertura = float(acao[1])
-    maxima = float(acao[2])
-    minima = float(acao[3])
-    fechamento = float(acao[4])
-    preco_atual = float(acao[5])
+
+    try:
+        abertura = float(acao[1])
+    except:
+        abertura = 0.0
+
+    try:
+        maxima = float(acao[2])
+    except:
+        maxima = 0.0
+
+    try:
+        minima = float(acao[3])
+    except:
+        minima = 0.0
+
+    try:
+        fechamento = float(acao[4])
+    except:
+        fechamento = 0.0
+
+    try:
+        preco_atual = float(acao[5])
+    except:
+        preco_atual = 0.0
+
+
     try:
         volume = float(acao[6].replace(',',''))
     except :
