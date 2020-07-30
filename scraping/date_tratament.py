@@ -1,12 +1,12 @@
 from datetime import datetime
 
 
-def date_treatment():
+def date_treatment(tempo=0):
     weekday = datetime.today().weekday()
     now = datetime.now()
     year = now.year
     month = now.month
-    day = now.day
+    day = now.day - tempo
     hora_do_dia = int(datetime.now().strftime('%H'))
     if month == 1:
         month = 'Jan'

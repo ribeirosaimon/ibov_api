@@ -10,13 +10,21 @@ def find_line_by_date(soup, date, tag):
             return soup[index]
 
 def soup_url(stock):
+    lista_acao = []
     start_url = f"https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA"
     browser = BeautifulSoup(get(start_url).content, "html.parser")
     time.sleep(0.5)
     base = browser.findAll('tr')
     span_in_line = find_line_by_date(base, date_treatment(), 'td').find_all('span')
     data = [element.text for element in span_in_line]
-    return data
+    for x in range(1,10):
+        try:
+            span_in_line = find_line_by_date(base, date_treatment(x), 'td').find_all('span')
+            obv = [element.text for element in span_in_line]
+            lista_acao.append(obv)
+        except:
+            pass
+    return [data, lista_acao]
 
 def avg_vol(stock):
     r = f'https://finance.yahoo.com/quote/{stock}.SA'
@@ -28,10 +36,3 @@ def avg_vol(stock):
     except:
         avg_vol = 0.0
     return float(avg_vol)
-
-def soup_url(stock):
-    start_url = f"https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA"
-    browser = BeautifulSoup(get(start_url).content, "html.parser")
-    time.sleep(0.5)
-    base = browser.findAll('tr')
-    span_in_line = find_line_by_date(base, date_treatment(), 'td').find_all('span')

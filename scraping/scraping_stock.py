@@ -1,10 +1,9 @@
 from scraping.soup import soup_url, avg_vol
 from scraping.date_tratament import dataIso
 
-
-
 def tratamento_acao(stock):
     acao = soup_url(stock)
+    acao = acao[0]
     data = dataIso()
 
     try:
@@ -37,6 +36,8 @@ def tratamento_acao(stock):
         volume = float(acao[6].replace(',',''))
     except :
         volume = 0.0
+
+
     volume_medio = avg_vol(stock)
     json_retorno = {f'{stock}':
     {
