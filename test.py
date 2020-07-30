@@ -1,9 +1,9 @@
 import unittest
-from scraping.scraping_stock import tratamento_acao
+from scraping.soup import soup_url
 from scraping.date_tratament import date_treatment
 
 stock = 'JSLG3'
-acao = tratamento_acao(stock)
+acao = soup_url(stock)
 
 
 class MyTest(unittest.TestCase):
@@ -33,4 +33,5 @@ class MyTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    print(acao)
