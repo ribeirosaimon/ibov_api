@@ -11,12 +11,12 @@ class get_stock(Resource):
         self.stock = stock
         return jsonify(tratamento_acao(stock))
 api.add_resource(get_stock,'/<string:stock>')
-
+'''
 class get_stock_information(Resource):
     def get(self,stock):
         self.stock = stock
         return jsonify(quantidades_de_tweets(stock))
 api.add_resource(get_stock_information,'/infotweet/<string:stock>')
-
+'''
 if __name__ == "__main__":
     app.run()

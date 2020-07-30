@@ -11,7 +11,10 @@ def tratamento_acao(stock):
     minima = float(acao[3])
     fechamento = float(acao[4])
     preco_atual = float(acao[5])
-    volume = float(acao[6].replace(',',''))
+    try:
+        volume = float(acao[6].replace(',',''))
+    except :
+        volume = 0.0
     volume_medio = avg_vol(stock)
     json_retorno = {f'{stock}':
     {
