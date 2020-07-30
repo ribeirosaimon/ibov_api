@@ -1,6 +1,6 @@
 import tweepy
 from scraping.date_tratament import date_tweet_sentiment_mes_anterior
-from scraping.string_tratament import tratamento_texto
+from analise_twitter.string_tratament import tratamento_texto
 from analise_twitter.keys import *
 
 #Tokens de acesso

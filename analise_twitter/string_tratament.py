@@ -1,6 +1,6 @@
 from nltk import tokenize
 import matplotlib.pyplot as plt
-from scraping.palavras_irrelevantes import PALAVRAS_IRRELEVANTES
+from analise_twitter.palavras_irrelevantes import PALAVRAS_IRRELEVANTES
 
 def tratamento_texto(texto):
     lista_de_tweets = []

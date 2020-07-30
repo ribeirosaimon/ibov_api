@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_restful import Api, Resource
 from scraping.scraping_stock import tratamento_acao
-from scraping.analise_twitter import quantidades_de_tweets
+from analise_twitter.api_twitter import quantidades_de_tweets
 
 app = Flask(__name__)
 api = Api(app)
