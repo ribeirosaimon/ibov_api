@@ -19,20 +19,19 @@ def soup_url(stock):
     base = browser.findAll('tr')
     span_in_line = find_line_by_date(base, date_treatment(), 'td').find_all('span')
     data = [element.text for element in span_in_line]
-    for x in range(1,21):
+    for x in range(20):
         try:
             span_in_line = find_line_by_date(base, date_treatment(x), 'td').find_all('span')
             ifr = [element.text for element in span_in_line]
+
             abertura = float(ifr[1])
             fechamento = float(ifr[4])
             if fechamento >= abertura:
                 calculo = fechamento - abertura
                 lista_acao_fechamento_alta.append(round(calculo,2))
-
-            if fechamento <= abertura:
+            if fechamento < abertura:
                 calculo = abertura - fechamento
                 lista_acao_fechamento_baixa.append(round(calculo,2))
-
         except Exception as e:
             pass
     media = ((sum(lista_acao_fechamento_alta)/14) / (sum(lista_acao_fechamento_baixa)/14))

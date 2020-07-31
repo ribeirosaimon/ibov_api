@@ -1,4 +1,5 @@
 from scraping.soup import soup_url
 
 
-soup_url('wege3')
+a = soup_url('movi3')
+print(a[1])

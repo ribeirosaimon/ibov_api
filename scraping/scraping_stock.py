@@ -52,7 +52,7 @@ def tratamento_acao(stock):
         'adj_close':preco_atual,
         'vol':volume,
         'avg_vol':volume_medio,
-        'ifr':ifr
+        'rsi':float(ifr)
         }
     }
     return json_retorno
