@@ -6,6 +6,7 @@ from scraping.date_tratament import date_treatment
 stock = str(input('Digite o Nome da Ação que queira Testar: '))
 
 acao = soup_url(stock)
+ifr = float(acao[1])
 acao = acao[0]
 volume = float(acao[6].replace(',',''))
 
@@ -33,6 +34,9 @@ class MyTest(unittest.TestCase):
 
     def testando_a_data(self):
         self.assertEqual(date_treatment(), acao[0])
+
+    def testando_o_ifr(self):
+        self.assertEqual(ifr, float)
 
 
 if __name__ == '__main__':

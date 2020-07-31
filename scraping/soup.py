@@ -17,7 +17,7 @@ def soup_url(stock):
     browser = BeautifulSoup(get(start_url).content, "html.parser")
     time.sleep(0.5)
     base = browser.findAll('tr')
-    span_in_line = find_line_by_date(base, date_treatment(1), 'td').find_all('span')
+    span_in_line = find_line_by_date(base, date_treatment(), 'td').find_all('span')
     data = [element.text for element in span_in_line]
     for x in range(1,21):
         try:
@@ -27,20 +27,24 @@ def soup_url(stock):
             fechamento = float(ifr[5])
             if fechamento >= abertura:
                 calculo = fechamento - abertura
-                lista_acao_fechamento_alta.append(calculo)
-                soma_da_media_alta = sum(lista_acao_fechamento_alta)/14
+                lista_acao_fechamento_alta.append(round(calculo,2))
+                #lista_acao_fechamento_alta.append(fechamento)
+
             if abertura > fechamento:
                 calculo = abertura - fechamento
-                lista_acao_fechamento_baixa.append(calculo)
-                soma_da_media_baixa = sum(lista_acao_fechamento_baixa)/14
+                lista_acao_fechamento_baixa.append(round(calculo,2))
+                #lista_acao_fechamento_baixa.append(abertura)
+
         except Exception as e:
             pass
-    resultado = soma_da_media_alta / soma_da_media_baixa
+    soma_da_media_baixa = (sum(lista_acao_fechamento_baixa) - sum(lista_acao_fechamento_alta))/14
+
     try:
-        retorno_ifr = 100 - (100/(1+resultado))
+        retorno_ifr = 100-(100/(1+(soma_da_media_baixa)))
     except:
         retorno_ifr = 0
-    return [data,retorno_ifr]
+    print(retorno_ifr)
+    return [data,float(retorno_ifr)]
 
 def avg_vol(stock):
     r = f'https://finance.yahoo.com/quote/{stock}.SA'
