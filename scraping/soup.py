@@ -24,27 +24,23 @@ def soup_url(stock):
             span_in_line = find_line_by_date(base, date_treatment(x), 'td').find_all('span')
             ifr = [element.text for element in span_in_line]
             abertura = float(ifr[1])
-            fechamento = float(ifr[5])
+            fechamento = float(ifr[4])
             if fechamento >= abertura:
                 calculo = fechamento - abertura
                 lista_acao_fechamento_alta.append(round(calculo,2))
-                #lista_acao_fechamento_alta.append(fechamento)
 
-            if abertura > fechamento:
+            if fechamento <= abertura:
                 calculo = abertura - fechamento
                 lista_acao_fechamento_baixa.append(round(calculo,2))
-                #lista_acao_fechamento_baixa.append(abertura)
 
         except Exception as e:
             pass
-    soma_da_media_baixa = (sum(lista_acao_fechamento_baixa) - sum(lista_acao_fechamento_alta))/14
-
+    media = ((sum(lista_acao_fechamento_alta)/14) / (sum(lista_acao_fechamento_baixa)/14))
     try:
-        retorno_ifr = 100-(100/(1+(soma_da_media_baixa)))
+        retorno_ifr = 100-(100/(1+media))
     except:
         retorno_ifr = 0
-    print(retorno_ifr)
-    return [data,float(retorno_ifr)]
+    return [data,round(retorno_ifr,2)]
 
 def avg_vol(stock):
     r = f'https://finance.yahoo.com/quote/{stock}.SA'
