@@ -4,9 +4,9 @@ from scraping.date_tratament import dataIso
 def tratamento_acao(stock):
     acao = soup_url(stock)
     ifr = acao[1]
+    media_movel = acao[2]
     acao = acao[0]
     data = dataIso()
-    print(ifr)
 
     try:
         abertura = float(acao[1])
@@ -52,7 +52,8 @@ def tratamento_acao(stock):
         'adj_close':preco_atual,
         'vol':volume,
         'avg_vol':volume_medio,
-        'rsi':float(ifr)
+        'rsi':float(ifr),
+        'mov_avg':float(media_movel)
         }
     }
     return json_retorno

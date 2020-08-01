@@ -1,13 +1,28 @@
-from datetime import datetime
+import datetime
 
 
 def date_treatment(tempo=0):
-    weekday = datetime.today().weekday()
-    now = datetime.now()
-    year = now.year
-    month = now.month
-    day = now.day - tempo
-    hora_do_dia = int(datetime.now().strftime('%H'))
+    weekday = datetime.datetime.today().weekday()
+    hoje = datetime.datetime.now() - datetime.timedelta(tempo)
+    ontem = datetime.timedelta(1)
+    anteontem = datetime.timedelta(2)
+    hora_do_dia = int(datetime.datetime.now().strftime('%H'))
+
+    if weekday == 5:
+        dia_para_tratamento = hoje - ontem
+    elif weekday == 6:
+        dia_para_tratamento = hoje - anteontem
+    elif weekday == 0:
+        if hora_do_dia < 10:
+            dia_para_tratamento = hoje - ontem - anteontem
+    else:
+        if hora_do_dia < 10:
+            dia_para_tratamento = hoje - ontem
+
+    month = int(str(dia_para_tratamento)[5:7])
+    day = int(str(dia_para_tratamento)[8:10])
+    year = int(str(dia_para_tratamento)[0:4])
+
     if month == 1:
         month = 'Jan'
     if month == 2:
@@ -33,35 +48,30 @@ def date_treatment(tempo=0):
     if month == 12:
         month = 'Dez'
 
-    if weekday == 5:
-        day = day - 1
-    if weekday == 6:
-        day = day - 2
-
-    if hora_do_dia < 10:
-        day = day - 1
-
-    if len(str(day)) == 1:
-        day = f'0{day}'
-
     return f'{month} {day}, {year}'
 
 
-
 def dataIso():
-    weekday = datetime.today().weekday()
-    now = datetime.now()
-    year = now.year
-    month = now.month
-    day = now.day
-    hour = now.strftime('%H')
-
+    weekday = datetime.datetime.today().weekday()
+    hoje = datetime.datetime.now() - datetime.timedelta()
+    ontem = datetime.timedelta(1)
+    anteontem = datetime.timedelta(2)
+    hora_do_dia = int(datetime.datetime.now().strftime('%H'))
 
     if weekday == 5:
-        day = day - 1
-    if weekday == 6:
-        day = day - 2
+        dia_para_tratamento = hoje - ontem
+    elif weekday == 6:
+        dia_para_tratamento = hoje - anteontem
+    elif weekday == 0:
+        if hora_do_dia < 10:
+            dia_para_tratamento = hoje - ontem - anteontem
+    else:
+        if hora_do_dia < 10:
+            dia_para_tratamento = hoje - ontem
 
+    month = int(str(dia_para_tratamento)[5:7])
+    day = int(str(dia_para_tratamento)[8:10])
+    year = int(str(dia_para_tratamento)[0:4])
 
     return f'{year}:{month}:{day}'
 

@@ -10,36 +10,39 @@ def find_line_by_date(soup, date, tag):
             return soup[index]
 
 def soup_url(stock):
-    lista_acao_fechamento_alta = []
-    lista_acao_fechamento_baixa = []
-    soma_da_media_alta, soma_da_media_baixa = 0, 0
+    lista_acao_fechamento_alta,lista_acao_fechamento_baixa, media_movel = [], [], []
+    soma_da_media_alta, soma_da_media_baixa, soma_media_movel = 0, 0, 0
     start_url = f"https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA"
     browser = BeautifulSoup(get(start_url).content, "html.parser")
     time.sleep(0.5)
     base = browser.findAll('tr')
     span_in_line = find_line_by_date(base, date_treatment(), 'td').find_all('span')
     data = [element.text for element in span_in_line]
+
     for x in range(20):
         try:
             span_in_line = find_line_by_date(base, date_treatment(x), 'td').find_all('span')
             ifr = [element.text for element in span_in_line]
-
             abertura = float(ifr[1])
             fechamento = float(ifr[4])
             if fechamento >= abertura:
                 calculo = fechamento - abertura
                 lista_acao_fechamento_alta.append(round(calculo,2))
+                media_movel.append(round(fechamento,2))
             if fechamento < abertura:
                 calculo = abertura - fechamento
                 lista_acao_fechamento_baixa.append(round(calculo,2))
+                media_movel.append(round(fechamento,2))
         except Exception as e:
             pass
-    media = ((sum(lista_acao_fechamento_alta)/14) / (sum(lista_acao_fechamento_baixa)/14))
+    media_calculo_ifr = ((sum(lista_acao_fechamento_alta)/14) / (sum(lista_acao_fechamento_baixa)/14))
+    soma_media_movel = round((sum(media_movel) / len(media_movel)),2)
     try:
-        retorno_ifr = 100-(100/(1+media))
-    except:
+        retorno_ifr = 100-(100/(1+media_calculo_ifr))
+    except Exception as e:
         retorno_ifr = 0
-    return [data,round(retorno_ifr,2)]
+        print(e)
+    return [data, round(retorno_ifr,2), soma_media_movel]
 
 def avg_vol(stock):
     r = f'https://finance.yahoo.com/quote/{stock}.SA'
