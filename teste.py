@@ -6,9 +6,12 @@ import json
 import requests
 import time
 
-acoes = ['movi3','oibr3','wege3','ptbl3','jslg3','ECOR3','egie3','rent3','cyre3','suzb3','ccro3', 'mrfg3','elet6','cmig4','petr4','enev3','pomo4']
+a = tratamento_acao('movi3')
+print(a)
 
 
+
+'''
 def get_api(stock):
     stock = stock
     api = 'https://secure-wildwood-34847.herokuapp.com'
@@ -25,13 +28,4 @@ def get_api(stock):
     mov_avg = acao[stock]['mov_avg']
     rsi = acao[stock]['rsi']
     return [nome_acao, adj_close, high, low, avg_vol, vol, mov_avg, rsi]
-
-for x in acoes:
-    try:
-        retorno = get_api(x)
-        if retorno[6]>retorno[1]:
-            print(f'A Ação {x} esta com a media movel abaixo do fechamento do pregao')
-        if 30 < retorno[7] > 70:
-            print(f'A Ação {x} esta com O Inidice de força relativa de {retorno[7]}')
-    except:
-        print(f'Ocorreu algum erro com a ação {x}')
+'''

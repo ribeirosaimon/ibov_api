@@ -2,6 +2,8 @@ import datetime
 
 
 def date_treatment(tempo=0):
+    #Pegando os dias da semana, caso o for antes da abertura do mercado (10 horas)
+    #ou fim de semana, vai se pegar o ultimo dia util
     weekday = datetime.datetime.today().weekday()
     hoje = datetime.datetime.now() - datetime.timedelta(tempo)
     ontem = datetime.timedelta(1)
@@ -19,9 +21,14 @@ def date_treatment(tempo=0):
         if hora_do_dia < 10:
             dia_para_tratamento = hoje - ontem
 
+    #deve se pegar os dias para transformar no formato do scraping
     month = int(str(dia_para_tratamento)[5:7])
     day = int(str(dia_para_tratamento)[8:10])
     year = int(str(dia_para_tratamento)[0:4])
+
+    #o dia deve haver 2 digitos
+    if len(str(day)) != 2:
+        day = f'0{day}'
 
     if month == 1:
         month = 'Jan'

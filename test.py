@@ -1,12 +1,11 @@
 import unittest
-from scraping.soup import soup_url, avg_vol
+from scraping.new_soup import soup_url, avg_vol
 from scraping.date_tratament import date_treatment
 
 
 stock = str(input('Digite o Nome da Ação que queira Testar: '))
 
 acao = soup_url(stock)
-ifr = acao[1]
 acao = acao[0]
 volume = float(acao[6].replace(',',''))
 
@@ -34,9 +33,6 @@ class MyTest(unittest.TestCase):
 
     def testando_a_data(self):
         self.assertEqual(date_treatment(), acao[0])
-
-    def testando_o_rsi(self):
-        self.assertIsInstance(ifr, float)
 
 
 if __name__ == '__main__':

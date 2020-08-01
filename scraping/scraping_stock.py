@@ -1,41 +1,41 @@
-from scraping.soup import soup_url, avg_vol
+from scraping.soup import soup_url, avg_vol, calculo_do_ifr, calculo_media_movel
 from scraping.date_tratament import dataIso
 
-def tratamento_acao(stock):
-    acao = soup_url(stock)
-    ifr = acao[1]
-    media_movel = acao[2]
-    acao = acao[0]
+def tratamento_acao(stock, tempo=14):
+    acao = soup_url(stock, tempo)
+    ifr = calculo_do_ifr(acao)
+    media_movel = calculo_media_movel(acao)
+    ultima_cotacao = acao[0]
     data = dataIso()
 
     try:
-        abertura = float(acao[1])
+        abertura = float(ultima_cotacao[1])
     except:
         abertura = 0.0
 
     try:
-        maxima = float(acao[2])
+        maxima = float(ultima_cotacao[2])
     except:
         maxima = 0.0
 
     try:
-        minima = float(acao[3])
+        minima = float(ultima_cotacao[3])
     except:
         minima = 0.0
 
     try:
-        fechamento = float(acao[4])
+        fechamento = float(ultima_cotacao[4])
     except:
         fechamento = 0.0
 
     try:
-        preco_atual = float(acao[5])
+        preco_atual = float(ultima_cotacao[5])
     except:
         preco_atual = 0.0
 
 
     try:
-        volume = float(acao[6].replace(',',''))
+        volume = float(ultima_cotacao[6].replace(',',''))
     except :
         volume = 0.0
 
