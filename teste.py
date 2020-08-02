@@ -3,5 +3,5 @@ from scraping.date_tratament import date_treatment, dataIso
 from scraping.scraping_stock import tratamento_acao
 
 
-
-tratamento_acao('movi3')
+acao = tratamento_acao('movi3')
+print(acao)

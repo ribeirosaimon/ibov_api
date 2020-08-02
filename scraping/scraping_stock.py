@@ -22,19 +22,22 @@ def tratamento_acao(stock):
     volume_medio = avg_vol(stock)
 
 
-    json_retorno = {f'{stock}':
-    {
-        'currecy':'R$',
-        'date':data,
-        'open':abertura,
-        'high':maxima,
-        'low':minima,
-        'close':fechamento,
-        'adj_close':preco_atual,
-        'vol':volume,
-        'avg_vol':volume_medio,
-        'rsi':float(ifr),
-        'mov_avg':float(media_movel),
-        }
+    json_retorno = {
+       f"{stock}":{
+          "analise_fundamentalista":{
+             "avg_vol":"volume_medio",
+             "rsi":"float(ifr)",
+             "mov_avg":"float(media_movel)"
+          },
+          "analise_tecnica":{
+             "date":"data",
+             "open":"abertura",
+             "high":"maxima",
+             "low":"minima",
+             "close":"fechamento",
+             "adj_close":"preco_atual",
+             "vol":"volume"
+          }
+       }
     }
     return json_retorno
