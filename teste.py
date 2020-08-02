@@ -4,4 +4,4 @@ from scraping.scraping_stock import tratamento_acao
 
 
 
-dataIso('Jul 24, 2020')
+tratamento_acao('movi3')
