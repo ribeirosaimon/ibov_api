@@ -1,4 +1,4 @@
-from scraping.soup import soup_url, avg_vol, calculo_do_ifr, calculo_media_movel
+from scraping.soup import *
 from scraping.date_tratament import dataIso
 
 def tratamento_acao(stock):
@@ -12,6 +12,10 @@ def tratamento_acao(stock):
     data = dataIso(acao[0][0])
     ifr = calculo_do_ifr(acao)
     media_movel = calculo_media_movel(acao)
+    topo_e_fundo = ultimo_topo_e_fundo_da_acao(acao)
+
+    topo = float(topo_e_fundo[0][2])
+    fundo = float(topo_e_fundo[1][1])
 
     abertura = float(ultima_cotacao[1])
     maxima = float(ultima_cotacao[2])
@@ -20,13 +24,18 @@ def tratamento_acao(stock):
     preco_atual = float(ultima_cotacao[5])
     volume = float(ultima_cotacao[6].replace(',',''))
     volume_medio = avg_vol(stock)
-
+    porcentagem_do_topo = round(abs((topo / preco_atual) - 1) * 100, 2)
+    porcentagem_do_fundo = round(abs((preco_atual / fundo) - 1) * 100, 2)
 
     json_retorno = {
        f"{stock}":{
           "technical_analysis":{
              "rsi":float(ifr),
-             "mov_avg":float(media_movel)
+             "mov_avg":float(media_movel),
+             'last_top':topo,
+             '%_last_top':porcentagem_do_topo,
+             'last_bottom':fundo,
+             '%_last_bottom':porcentagem_do_fundo
           },
           "fundamentalist_analysis":{
              "date":data,

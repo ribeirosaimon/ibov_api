@@ -84,7 +84,7 @@ def calculo_media_movel(lista, tempo=14):
 
 #['Jul 20, 2020',    '15.61',       '16.35',    '15.61',     '16.16',         '16.16',       '3,685,700']
 #[     data          abertura        maxima      minima      fechamento      preco_atual      volume]
-def ultimo_topo_da_acao(lista):
+def ultimo_topo_e_fundo_da_acao(lista):
     #O candle vai haver uma minima e uma maxima
     contador = 0
     topo, fundo = [], []

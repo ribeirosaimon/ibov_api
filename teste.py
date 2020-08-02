@@ -1,7 +1,7 @@
-from scraping.soup import soup_url, ultimo_topo_da_acao, ultimo_fundo_da_acao, calculo_media_movel
+from scraping.soup import soup_url, calculo_media_movel
 from scraping.date_tratament import date_treatment, dataIso
 from scraping.scraping_stock import tratamento_acao
 
-
-acao = tratamento_acao('movi3')
+stock = 'oibr3'
+acao = tratamento_acao(stock)
 print(acao)
