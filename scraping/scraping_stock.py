@@ -24,19 +24,19 @@ def tratamento_acao(stock):
 
     json_retorno = {
        f"{stock}":{
-          "analise_fundamentalista":{
-             "avg_vol":"volume_medio",
-             "rsi":"float(ifr)",
-             "mov_avg":"float(media_movel)"
+          "technical_analysis":{
+             "rsi":float(ifr),
+             "mov_avg":float(media_movel)
           },
-          "analise_tecnica":{
-             "date":"data",
-             "open":"abertura",
-             "high":"maxima",
-             "low":"minima",
-             "close":"fechamento",
-             "adj_close":"preco_atual",
-             "vol":"volume"
+          "fundamentalist_analysis":{
+             "date":data,
+             "open":abertura,
+             "high":maxima,
+             "low":minima,
+             "close":fechamento,
+             "adj_close":preco_atual,
+             "vol":volume,
+             "avg_vol":volume_medio,
           }
        }
     }
