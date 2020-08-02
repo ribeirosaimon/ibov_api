@@ -1,5 +1,5 @@
 import unittest
-from scraping.new_soup import soup_url, avg_vol
+from scraping.soup import soup_url, avg_vol
 from scraping.date_tratament import date_treatment
 
 
