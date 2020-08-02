@@ -3,15 +3,17 @@ from scraping.date_tratament import dataIso
 
 def tratamento_acao(stock):
     acao = soup_url(stock)
+    data = dataIso()
 
     ultima_cotacao = acao[0]
     if len(acao[0]) != len(acao[1]):
         ultima_cotacao = acao[1]
         acao = acao[1:]
 
+
     ifr = calculo_do_ifr(acao)
     media_movel = calculo_media_movel(acao)
-    data = dataIso()
+
 
     abertura = float(ultima_cotacao[1])
     maxima = float(ultima_cotacao[2])

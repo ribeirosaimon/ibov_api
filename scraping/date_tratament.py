@@ -58,27 +58,36 @@ def date_treatment(tempo=0):
     return f'{month} {day}, {year}'
 
 
-def dataIso():
-    weekday = datetime.datetime.today().weekday()
-    hoje = datetime.datetime.now() - datetime.timedelta()
-    ontem = datetime.timedelta(1)
-    anteontem = datetime.timedelta(2)
-    hora_do_dia = int(datetime.datetime.now().strftime('%H'))
+def dataIso(data_string):
 
-    if weekday == 5:
-        dia_para_tratamento = hoje - ontem
-    elif weekday == 6:
-        dia_para_tratamento = hoje - anteontem
-    elif weekday == 0:
-        if hora_do_dia < 10:
-            dia_para_tratamento = hoje - ontem - anteontem
-    else:
-        if hora_do_dia < 10:
-            dia_para_tratamento = hoje - ontem
+    month = data_string[0:3]
+    day = data_string[4:6]
+    year = data_string[8:12]
 
-    month = int(str(dia_para_tratamento)[5:7])
-    day = int(str(dia_para_tratamento)[8:10])
-    year = int(str(dia_para_tratamento)[0:4])
+    if month == 'Jan':
+        month = 1
+    if month == 'Fev':
+        month = 2
+    if month == 'Mar':
+        month = 3
+    if month == 'Abr':
+        month = 4
+    if month == 'Mai':
+        month = 5
+    if month == 'Jun':
+        month = 6
+    if month == 'Jul':
+        month = 7
+    if month == 'Ago':
+        month = 8
+    if month == 'Set':
+        month = 9
+    if month == 'Out':
+        month = 10
+    if month == 'Nov':
+        month = 11
+    if month == 'Dez':
+        month = 12
 
     return f'{year}:{month}:{day}'
 
