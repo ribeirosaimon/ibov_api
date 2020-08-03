@@ -45,7 +45,7 @@ def date_treatment(tempo=0):
     if month == 7:
         month = 'Jul'
     if month == 8:
-        month = 'Ago'
+        month = 'Aug'
     if month == 9:
         month = 'Set'
     if month == 10:
@@ -78,7 +78,7 @@ def dataIso(data_string):
         month = 6
     if month == 'Jul':
         month = 7
-    if month == 'Ago':
+    if month == 'Aug':
         month = 8
     if month == 'Set':
         month = 9
