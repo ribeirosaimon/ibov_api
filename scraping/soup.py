@@ -85,29 +85,28 @@ def calculo_media_movel(lista, tempo=14):
 
 #['Jul 20, 2020',    '15.61',       '16.35',    '15.61',     '16.16',         '16.16',       '3,685,700']
 #[     data          abertura        maxima      minima      fechamento      preco_atual      volume]
-def ultimo_topo_e_fundo_da_acao(lista):
+def ultimo_topo_e_fundo_da_acao(lista, candles=2):
     #O candle vai haver uma minima e uma maxima
     contador = 0
-    topo, fundo = [], []
-    candle_de_referencia = ['', 0, 0]
-
+    topo = float(lista[-1][2])
+    fundo = float(lista[-1][1])
+    candle_referencia = [fundo, topo]
+    retorno = ['',0]
     for dados in lista[::-1]:
         maxima = float(dados[2])
         minima = float(dados[3])
         #se a maxima é maior que o ultimo candle de referencia é o novo topo
-        if maxima > candle_de_referencia[2]:
-            candle_de_referencia=[dados[0], minima, maxima]
-            topo = candle_de_referencia
-            contador = 0
-        #caso ele perca a maxima, precisa perder em 2 candles
-        if minima < candle_de_referencia[1]:
+        if maxima > topo:
             contador += 1
-            if contador >= 2:
-                candle_de_referencia = [dados[0], minima, maxima]
-                fundo = candle_de_referencia
-    return fundo, topo
-
-
-def ultimo_fundo_da_acao(lista):
-    numero = min([float(x[4]) for x in lista])
-    return numero
+            if contador >= candles:
+                topo = maxima
+                candle_referencia = [minima, maxima]
+                retorno = ['topo',maxima]
+        #caso ele perca a maxima, precisa perder em 2 candles
+        if minima < float(candle_referencia[0]):
+            contador += 1
+            if contador >= candles:
+                fundo = minima
+                candle_referencia = [minima, maxima]
+                retorno = ['fundo',minima]
+    return retorno
