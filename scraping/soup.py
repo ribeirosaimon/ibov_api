@@ -22,6 +22,7 @@ def soup_url(stock, tempo=60):
             span_in_line = find_line_by_date(base, date_treatment(contador), 'td').find_all('span')
             data = [element.text for element in span_in_line]
             resultado_dos_dias.append(data)
+
         except Exception as e:
             contador_de_erro += 1
             if contador_de_erro > tempo:

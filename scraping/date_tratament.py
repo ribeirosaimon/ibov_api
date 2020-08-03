@@ -11,20 +11,20 @@ def date_treatment(tempo=0):
     hora_do_dia = int(datetime.datetime.now().strftime('%H'))
 
     if weekday == 5:
-        dia_para_tratamento = hoje - ontem
+        hoje = hoje - ontem
     elif weekday == 6:
-        dia_para_tratamento = hoje - anteontem
+        hoje = hoje - anteontem
     elif weekday == 0:
         if hora_do_dia < 10:
-            dia_para_tratamento = hoje - ontem - anteontem
+            hoje = hoje - ontem - anteontem
     else:
         if hora_do_dia < 10:
-            dia_para_tratamento = hoje - ontem
+            hoje = hoje - ontem
 
     #deve se pegar os dias para transformar no formato do scraping
-    month = int(str(dia_para_tratamento)[5:7])
-    day = int(str(dia_para_tratamento)[8:10])
-    year = int(str(dia_para_tratamento)[0:4])
+    month = int(str(hoje)[5:7])
+    day = int(str(hoje)[8:10])
+    year = int(str(hoje)[0:4])
 
     #o dia deve haver 2 digitos
     if len(str(day)) != 2:
