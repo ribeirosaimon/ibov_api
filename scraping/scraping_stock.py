@@ -9,6 +9,9 @@ def tratamento_acao(stock):
         ultima_cotacao = acao[1]
         acao = acao[1:]
 
+    hilo = indicador_hightlow(acao)
+    media_hilo = hilo[1]
+    call_hilo = hilo[0]
     data = dataIso(acao[0][0])
     ifr = calculo_do_ifr(acao)
     media_movel = calculo_media_movel(acao)
@@ -32,6 +35,8 @@ def tratamento_acao(stock):
              'reference': referencia,
              'price_reference': referencia_preco,
              '%_last_reference':procentagem_da_referencia,
+             'call_hilo': call_hilo,
+             'price_hilo':media_hilo,
 
           },
           "fundamentalist_analysis":{

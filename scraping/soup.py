@@ -100,12 +100,35 @@ def ultimo_topo_e_fundo_da_acao(lista, candles=2):
             if contador >= candles:
                 topo = maxima
                 candle_referencia = [minima, maxima]
-                retorno = ['topo',maxima]
+                retorno = ['top',maxima]
         #caso ele perca a maxima, precisa perder em 2 candles
         if minima < float(candle_referencia[0]):
             contador += 1
             if contador >= candles:
                 fundo = minima
                 candle_referencia = [minima, maxima]
-                retorno = ['fundo',minima]
+                retorno = ['bottom',minima]
     return retorno
+
+
+def indicador_hightlow(lista, candles=3):
+    contador1 = 0
+    contador2 = candles
+    retorno = ''
+    for index in lista:
+        lista_media_movel_maxima, lista_media_movel_minima = [], []
+        nova_lista = lista[contador1:contador2]
+        for candle_dias in nova_lista:
+            lista_media_movel_maxima.append(float(candle_dias[2]))
+            lista_media_movel_minima.append(float(candle_dias[3]))
+        maxima_hilo = round(sum(lista_media_movel_maxima) / len(nova_lista), 2)
+        minima_hilo = round(sum(lista_media_movel_minima) / len(nova_lista), 2)
+        contador1 += 1
+        contador2 += 1
+
+    for x in lista:
+        if float(x[4]) < minima_hilo:
+            return ['sell', minima_hilo]
+
+        if float(x[4]) > maxima_hilo:
+            return ['buy', maxima_hilo]
