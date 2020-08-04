@@ -127,8 +127,8 @@ def indicador_hightlow(lista, candles=3):
         contador2 += 1
 
     for x in lista:
-        if float(x[4]) < minima_hilo:
+        if float(x[4]) > minima_hilo:
             return ['sell', minima_hilo]
 
-        if float(x[4]) > maxima_hilo:
+        if float(x[4]) < maxima_hilo:
             return ['buy', maxima_hilo]
