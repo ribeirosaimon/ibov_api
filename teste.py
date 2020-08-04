@@ -5,6 +5,6 @@ from scraping.acoes_ibov import LISTA
 
 
 stock = 'movi3'
-acao = tratamento_acao(stock)
-
+acao = soup_url(stock)
+acao = indicador_hightlow(acao)
 print(acao)

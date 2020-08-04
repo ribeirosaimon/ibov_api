@@ -112,23 +112,19 @@ def ultimo_topo_e_fundo_da_acao(lista, candles=2):
 
 
 def indicador_hightlow(lista, candles=3):
-    contador1 = 0
-    contador2 = candles
-    retorno = ''
-    for index in lista:
-        lista_media_movel_maxima, lista_media_movel_minima = [], []
-        nova_lista = lista[contador1:contador2]
-        for candle_dias in nova_lista:
-            lista_media_movel_maxima.append(float(candle_dias[2]))
-            lista_media_movel_minima.append(float(candle_dias[3]))
-        maxima_hilo = round(sum(lista_media_movel_maxima) / len(nova_lista), 2)
-        minima_hilo = round(sum(lista_media_movel_minima) / len(nova_lista), 2)
-        contador1 += 1
-        contador2 += 1
+    lista_media_movel_maxima, lista_media_movel_minima = [], []
+    for candle_dias in lista[0:candles]:
+        lista_media_movel_maxima.append(float(candle_dias[2]))
+        lista_media_movel_minima.append(float(candle_dias[3]))
+    maxima_hilo = round(sum(lista_media_movel_maxima) / len(lista[0:candles]), 2)
+    minima_hilo = round(sum(lista_media_movel_minima) / len(lista[0:candles]), 2)
 
-    for x in lista:
-        if float(x[4]) > minima_hilo:
-            return ['sell', minima_hilo]
 
-        if float(x[4]) < maxima_hilo:
-            return ['buy', maxima_hilo]
+    if float(lista[0][4]) < minima_hilo:
+        return ['sell', maxima_hilo]
+    if float(lista[0][4]) > minima_hilo:
+        return ['buy', minima_hilo]
+    if float(lista[0][4]) < maxima_hilo:
+        return ['sell', minima_hilo]
+    if float(lista[0][4]) > maxima_hilo:
+        return ['buy', minima_hilo]
