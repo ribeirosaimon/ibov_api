@@ -2,9 +2,9 @@ from scraping.soup import soup_url, calculo_media_movel, ultimo_topo_e_fundo_da_
 from scraping.date_tratament import date_treatment, dataIso
 from scraping.scraping_stock import tratamento_acao
 from scraping.acoes_ibov import LISTA
+from pylightxl import open_workbook
 
+book = open_workbook('crono_2020.xlsx',on_demand=True)
 
-stock = 'movi3'
-acao = soup_url(stock)
-acao = indicador_hightlow(acao)
-print(acao)
+for name in book.sheet_names():
+    print(name)
