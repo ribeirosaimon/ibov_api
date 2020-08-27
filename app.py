@@ -6,6 +6,12 @@ from scraping.scraping_stock import tratamento_acao
 app = Flask(__name__)
 api = Api(app)
 
+
+class home(Resource):
+    def get(self):
+        return {'message':'Digite o ticket da ação após o endereço do site: www.site.com.br/petr4'}
+api.add_resource(home,'/')
+
 class get_stock(Resource):
     def get(self, stock):
         self.stock = stock
