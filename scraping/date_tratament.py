@@ -47,13 +47,13 @@ def date_treatment(tempo=0):
     if month == 8:
         month = 'Aug'
     if month == 9:
-        month = 'Set'
+        month = 'Sep'
     if month == 10:
-        month = 'Out'
+        month = 'Oct'
     if month == 11:
         month = 'Nov'
     if month == 12:
-        month = 'Dez'
+        month = 'Dec'
 
     return f'{month} {day}, {year}'
 
