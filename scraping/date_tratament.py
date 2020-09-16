@@ -80,13 +80,13 @@ def dataIso(data_string):
         month = 7
     if month == 'Aug':
         month = 8
-    if month == 'Set':
+    if month == 'Sep':
         month = 9
-    if month == 'Out':
+    if month == 'Oct':
         month = 10
     if month == 'Nov':
         month = 11
-    if month == 'Dez':
+    if month == 'Dec':
         month = 12
 
     return f'{year}:{month}:{day}'
