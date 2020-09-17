@@ -9,11 +9,14 @@ def find_line_by_date(soup, date, tag):
         if new == date:
             return soup[index]
 
-def soup_url(stock, tempo=60):
+def soup_url(stock, tempo=60, brasileira=True):
     #tempo calculado em dias com 60 dias padronizado
     contador,contador_de_erro = 0, 0
     resultado_dos_dias = []
-    start_url = f"https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA"
+    if brasileira == True:
+        start_url = f"https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA"
+    else:
+        start_url = f'https://finance.yahoo.com/quote/{stock}/history?p={stock}'
     browser = BeautifulSoup(get(start_url).content, "html.parser")
     base = browser.findAll('tr')
     #pegando as informações dos dias que foi passado no soup
@@ -31,8 +34,11 @@ def soup_url(stock, tempo=60):
     return resultado_dos_dias
 
 
-def avg_vol(stock):
-    r = f'https://finance.yahoo.com/quote/{stock}.SA'
+def avg_vol(stock, brasileira=True):
+    if brasileira == True:
+        r = f'https://finance.yahoo.com/quote/{stock}.SA'
+    else:
+        r = f'https://finance.yahoo.com/quote/{stock}'
     time.sleep(0.5)
     browser = BeautifulSoup(get(r).content, 'lxml')
     soup = browser.find('td', {'data-test': 'AVERAGE_VOLUME_3MONTH-value'})

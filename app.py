@@ -9,14 +9,23 @@ api = Api(app)
 
 class home(Resource):
     def get(self):
-        return {'message':'Digite o ticket da ação após o endereço do site: www.site.com.br/petr4'}
+        return {'First type the country':'br or usa',
+                'after type the ticket stock':'petr4 or fb',
+                'exemple':'br/petr4 or usa/fb'}
 api.add_resource(home,'/')
 
 class get_stock(Resource):
     def get(self, stock):
         self.stock = stock
-        return jsonify(tratamento_acao(stock))
-api.add_resource(get_stock,'/<string:stock>')
+        return jsonify(tratamento_acao(stock, brasileira=True))
+api.add_resource(get_stock,'/br/<string:stock>')
+
+class get_usa_stock(Resource):
+    def get(self, stock):
+        self.stock = stock
+        return jsonify(tratamento_acao(stock, brasileira=False))
+api.add_resource(get_usa_stock,'/usa/<string:stock>')
+
 
 if __name__ == "__main__":
     app.run()
