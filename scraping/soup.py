@@ -36,18 +36,13 @@ def soup_url(stock, tempo=60, brasileira=True):
 
 def avg_vol(stock, brasileira=True):
     if brasileira == True:
-        r = f'https://finance.yahoo.com/quote/{stock}.SA'
-    else:
-        r = f'https://finance.yahoo.com/quote/{stock}'
-    time.sleep(0.5)
-    browser = BeautifulSoup(get(r).content, 'lxml')
-    soup = browser.find('td', {'data-test': 'AVERAGE_VOLUME_3MONTH-value'})
-    try:
-        avg_vol = float(soup.text.replace(',', ''))
-    except:
-        avg_vol = 0.0
-    return float(avg_vol)
+        stock = f'{stock}.sa'
+    endpoint = f'https://query1.finance.yahoo.com/v10/finance/quoteSummary/{stock}?modules=summaryDetail%2CearningsHistory'
+    resposta = requests.request('GET', endpoint)
+    resposta = float(resposta.json()['quoteSummary']['result'][0]['summaryDetail']['averageVolume']['raw'])
+    return resposta
 
+    
 #[['abc3',123,123,123,123],['asdc',123,123,123,1]]
 def calculo_do_ifr(lista, tempo=14):
     #tempo Padrao de 14 Dias
