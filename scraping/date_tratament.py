@@ -101,3 +101,21 @@ def date_tweet_sentiment_mes_anterior():
     hour = now.strftime('%H')
 
     return f'{year}-{month}-{day}'
+
+
+
+def date_timestamp_for_date_utc():
+    data_atual = str(datetime.date.today())
+    data_atual = data_atual.split('-')
+    ano = int(data_atual[0])
+    ano_passado = ano -2
+    mes = int(data_atual[1])
+    dia = int(data_atual[2])
+    dt_ano_atual = datetime.datetime(ano, mes, dia)
+    dt_ano_passado = datetime.datetime(ano_passado, mes, dia)
+    timestamp_ano_atual = (dt_ano_atual - datetime.datetime(1970, 1, 1)).total_seconds()
+    timestamp_ano_passado = (dt_ano_passado - datetime.datetime(1970,1,1)).total_seconds()
+    ts_atual = int(timestamp_ano_atual)
+    ts_passado = int(timestamp_ano_passado)
+    #datetime.datetime.utcfromtimestamp(ts_atual).strftime('%Y-%m-%d %H:%M:%S')
+    return ts_atual, ts_passado
