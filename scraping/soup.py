@@ -2,6 +2,7 @@ from requests import get
 from bs4 import BeautifulSoup
 from scraping.date_tratament import date_treatment
 import time
+import requests
 
 def find_line_by_date(soup, date, tag):
     for index in range(1, len(soup)+1, 1):
@@ -42,7 +43,7 @@ def avg_vol(stock, brasileira=True):
     resposta = float(resposta.json()['quoteSummary']['result'][0]['summaryDetail']['averageVolume']['raw'])
     return resposta
 
-    
+
 #[['abc3',123,123,123,123],['asdc',123,123,123,1]]
 def calculo_do_ifr(lista, tempo=14):
     #tempo Padrao de 14 Dias

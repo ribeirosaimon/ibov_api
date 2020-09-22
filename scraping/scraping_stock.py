@@ -1,5 +1,6 @@
 from scraping.soup import *
 from scraping.date_tratament import dataIso
+import requests
 
 def tratamento_acao(stock, brasileira=True):
     acao = soup_url(stock, brasileira=brasileira)
