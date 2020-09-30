@@ -1,38 +1,40 @@
 from requests import get
 from bs4 import BeautifulSoup
-from scraping.date_tratament import date_treatment
+from scraping.date_tratament import date_treatment, date_timestamp_for_date_utc
 import time
 import requests
 
-def find_line_by_date(soup, date, tag):
-    for index in range(1, len(soup)+1, 1):
-        new = soup[index].find(tag).text
-        if new == date:
-            return soup[index]
 
-def soup_url(stock, tempo=60, brasileira=True):
-    #tempo calculado em dias com 60 dias padronizado
-    contador,contador_de_erro = 0, 0
-    resultado_dos_dias = []
+def soup_url(stock, brasileira=True, tempo=60):
+    lista_montada = []
     if brasileira == True:
-        start_url = f"https://finance.yahoo.com/quote/{stock}.SA/history?p={stock}.SA"
-    else:
-        start_url = f'https://finance.yahoo.com/quote/{stock}/history?p={stock}'
-    browser = BeautifulSoup(get(start_url).content, "html.parser")
-    base = browser.findAll('tr')
-    #pegando as informações dos dias que foi passado no soup
-    while tempo != len(resultado_dos_dias):
+        stock = f'{stock}.sa'
+    start_date, end_date = date_timestamp_for_date_utc()
+    endpoint = f'https://query2.finance.yahoo.com/v8/finance/chart/{stock}?symbol={stock}&period1={end_date}&period2={start_date}&interval=1d&includePrePost=true&events=div%2Csplit'
+    resposta = requests.request('GET', endpoint)
+    tamanho_do_json = resposta.json()['chart']['result'][0]['timestamp']
+
+    if tempo >= len(tamanho_do_json):
+        tempo = len(tamanho_do_json)
+    for x in range(tempo):
         try:
-            span_in_line = find_line_by_date(base, date_treatment(contador), 'td').find_all('span')
-            data = [element.text for element in span_in_line]
-            resultado_dos_dias.append(data)
-        except Exception as e:
-            contador_de_erro += 1
-            if contador_de_erro > tempo:
-                break
+            fechamento = resposta.json()['chart']['result'][0]['indicators']['quote'][0]['close'][x]
+            abertura = resposta.json()['chart']['result'][0]['indicators']['quote'][0]['open'][x]
+            volume = resposta.json()['chart']['result'][0]['indicators']['quote'][0]['volume'][x]
+            baixa = resposta.json()['chart']['result'][0]['indicators']['quote'][0]['low'][x]
+            alta = resposta.json()['chart']['result'][0]['indicators']['quote'][0]['high'][x]
+            fechamento = round(fechamento,2)
+            abertura = round(abertura,2)
+            baixa = round(baixa,2)
+            alta = round(alta,2)
+            lista_montada.append([fechamento, alta, baixa, abertura, volume])
+        except:
             pass
-        contador +=1
-    return resultado_dos_dias
+    if len(lista_montada) < tempo:
+        tempo = 0
+
+    #lista_montada = lista_montada[0:tempo][::-1]
+    return lista_montada
 
 
 def avg_vol(stock, brasileira=True):
@@ -52,8 +54,8 @@ def calculo_do_ifr(lista, tempo=14):
     lista = lista[:tempo]
     for dados in lista:
         try:
-            abertura = float(dados[1])
-            fechamento = float(dados[4])
+            abertura = float(dados[3])
+            fechamento = float(dados[0])
             if fechamento >= abertura:
                 calculo = fechamento - abertura
                 lista_acao_fechamento_alta.append(round(calculo,2))
@@ -70,6 +72,11 @@ def calculo_do_ifr(lista, tempo=14):
         print(e)
     return round(retorno_ifr,2)
 
+def find_line_by_date(soup, date, tag):
+    for index in range(1, len(soup)+1, 1):
+        new = soup[index].find(tag).text
+        if new == date:
+            return soup[index]
 
 
 def calculo_media_movel(lista, tempo=14):
@@ -77,27 +84,28 @@ def calculo_media_movel(lista, tempo=14):
     soma_media_movel = 0
     for x in range(tempo):
         try:
-            fechamento = float(lista[x][4])
-            media_movel.append(round(fechamento,2))
+            fechamento = float(lista[x][0])
+            media_movel.append(fechamento)
             soma_media_movel = round((sum(media_movel) / len(media_movel)),2)
         except Exception as e:
             pass
     return soma_media_movel
 
-#['Jul 20, 2020',    '15.61',       '16.35',    '15.61',     '16.16',         '16.16',       '3,685,700']
-#[     data          abertura        maxima      minima      fechamento      preco_atual      volume]
+#[fechamento, alta, baixa, abertura, volume]
+
 def ultimo_topo_e_fundo_da_acao(lista, candles=2):
     #O candle vai haver uma minima e uma maxima
+    lista = lista[::-1]
     contador = 0
-    topo = float(lista[-1][2])
-    fundo = float(lista[-1][1])
+    topo = float(lista[0][1])
+    fundo = float(lista[0][2])
     candle_referencia = [fundo, topo]
     retorno = ['',0]
-    for dados in lista[::-1]:
-        maxima = float(dados[2])
-        minima = float(dados[3])
+    for dados in lista:
+        maxima = float(dados[1])
+        minima = float(dados[2])
         #se a maxima é maior que o ultimo candle de referencia é o novo topo
-        if maxima > topo:
+        if maxima > float(candle_referencia[1]):
             contador += 1
             if contador >= candles:
                 topo = maxima
@@ -116,17 +124,17 @@ def ultimo_topo_e_fundo_da_acao(lista, candles=2):
 def indicador_hightlow(lista, candles=3):
     lista_media_movel_maxima, lista_media_movel_minima = [], []
     for candle_dias in lista[0:candles]:
-        lista_media_movel_maxima.append(float(candle_dias[2]))
-        lista_media_movel_minima.append(float(candle_dias[3]))
+        lista_media_movel_maxima.append(candle_dias[1])
+        lista_media_movel_minima.append(candle_dias[2])
     maxima_hilo = round(sum(lista_media_movel_maxima) / len(lista[0:candles]), 2)
     minima_hilo = round(sum(lista_media_movel_minima) / len(lista[0:candles]), 2)
 
 
-    if float(lista[0][4]) < minima_hilo:
+    if float(lista[0][3]) < minima_hilo:
         return ['sell', maxima_hilo]
-    if float(lista[0][4]) > minima_hilo:
+    if float(lista[0][3]) > minima_hilo:
         return ['buy', minima_hilo]
-    if float(lista[0][4]) < maxima_hilo:
+    if float(lista[0][3]) < maxima_hilo:
         return ['sell', minima_hilo]
-    if float(lista[0][4]) > maxima_hilo:
+    if float(lista[0][3]) > maxima_hilo:
         return ['buy', minima_hilo]

@@ -92,17 +92,6 @@ def dataIso(data_string):
     return f'{year}:{month}:{day}'
 
 
-def date_tweet_sentiment_mes_anterior():
-    weekday = datetime.today().weekday()
-    now = datetime.now()
-    year = now.year
-    month = now.month - 1
-    day = now.day
-    hour = now.strftime('%H')
-
-    return f'{year}-{month}-{day}'
-
-
 
 def date_timestamp_for_date_utc():
     data_atual = str(datetime.date.today())
@@ -110,7 +99,7 @@ def date_timestamp_for_date_utc():
     ano = int(data_atual[0])
     ano_passado = ano - 1
     mes = int(data_atual[1])
-    dia = int(data_atual[2]) + 1
+    dia = int(data_atual[2])
     dt_ano_atual = datetime.datetime(ano, mes, dia)
     dt_ano_passado = datetime.datetime(ano_passado, mes, dia)
     timestamp_ano_atual = (dt_ano_atual - datetime.datetime(1970, 1, 1)).total_seconds()
@@ -119,3 +108,6 @@ def date_timestamp_for_date_utc():
     ts_passado = int(timestamp_ano_passado)
     #datetime.datetime.utcfromtimestamp(ts_atual).strftime('%Y-%m-%d %H:%M:%S')
     return ts_atual, ts_passado
+
+def data_atual():
+    return str(datetime.date.today())
