@@ -99,7 +99,7 @@ def date_timestamp_for_date_utc():
     ano = int(data_atual[0])
     ano_passado = ano - 1
     mes = int(data_atual[1])
-    dia = int(data_atual[2])
+    dia = int(data_atual[2])+1
     dt_ano_atual = datetime.datetime(ano, mes, dia)
     dt_ano_passado = datetime.datetime(ano_passado, mes, dia)
     timestamp_ano_atual = (dt_ano_atual - datetime.datetime(1970, 1, 1)).total_seconds()
