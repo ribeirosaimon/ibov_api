@@ -32,7 +32,7 @@ def soup_url(stock, brasileira=True, tempo=60):
             pass
     if len(lista_montada) < tempo:
         tempo = 0
-
+    print(lista_montada)
     #lista_montada = lista_montada[0:tempo][::-1]
     return lista_montada
 
