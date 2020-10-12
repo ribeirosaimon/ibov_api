@@ -13,10 +13,7 @@ def soup_url(stock, brasileira=True, tempo=60):
     endpoint = f'https://query2.finance.yahoo.com/v8/finance/chart/{stock}?symbol={stock}&period1={end_date}&period2={start_date}&interval=1d&includePrePost=true&events=div%2Csplit'
     resposta = requests.request('GET', endpoint)
     tamanho_do_json = resposta.json()['chart']['result'][0]['timestamp']
-
-    if tempo >= len(tamanho_do_json):
-        tempo = len(tamanho_do_json)
-    for x in range(tempo):
+    for x in range(len(tamanho_do_json)):
         try:
             fechamento = resposta.json()['chart']['result'][0]['indicators']['quote'][0]['close'][x]
             abertura = resposta.json()['chart']['result'][0]['indicators']['quote'][0]['open'][x]
@@ -30,10 +27,10 @@ def soup_url(stock, brasileira=True, tempo=60):
             lista_montada.append([fechamento, alta, baixa, abertura, volume])
         except:
             pass
+
     if len(lista_montada) < tempo:
         tempo = 0
-    print(lista_montada)
-    #lista_montada = lista_montada[0:tempo][::-1]
+    lista_montada = lista_montada[::-1][:tempo]
     return lista_montada
 
 
