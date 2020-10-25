@@ -13,5 +13,5 @@ def teste_endpoint(br, acao):
     print(retorno)
 
 
-retorno = bandas_de_bollinger(soup_url('movi3'))
+retorno = bandas_de_bollinger(soup_url('mu',brasileira=False))
 print(retorno)

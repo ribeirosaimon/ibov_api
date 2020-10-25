@@ -147,6 +147,7 @@ def bandas_de_bollinger(lista, candles=20, desvio_padrao=2):
         squared = (float(x[0]) - middle_bollinger)
         desvio_padrao += abs(squared ** 2)
     desvio_padrao_bollinger = round(desvio_padrao / candles, 2)
+    print(desvio_padrao_bollinger)
     up_bollinger = middle_bollinger + (2 * desvio_padrao_bollinger)
     lower_bollinger = middle_bollinger - (2 * desvio_padrao_bollinger)
     for valor in lista:
