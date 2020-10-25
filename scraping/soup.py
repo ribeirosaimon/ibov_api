@@ -135,3 +135,26 @@ def indicador_hightlow(lista, candles=3):
         return ['sell', minima_hilo]
     if float(lista[0][3]) > maxima_hilo:
         return ['buy', minima_hilo]
+
+def bandas_de_bollinger(lista, candles=20, desvio_padrao=2):
+    lista = lista[0:candles]
+    middle,desvio_padrao = 0,0
+    call_bollinger = 'none'
+    for close_price in lista:
+        middle += float(close_price[0])
+    middle_bollinger = round(middle / candles, 2)
+    for x in lista:
+        squared = (float(x[0]) - middle_bollinger)
+        desvio_padrao += abs(squared ** 2)
+    desvio_padrao_bollinger = round(desvio_padrao / candles, 2)
+    up_bollinger = middle_bollinger + (2 * desvio_padrao_bollinger)
+    lower_bollinger = middle_bollinger - (2 * desvio_padrao_bollinger)
+    for valor in lista:
+        fechamento = valor[0]
+        if fechamento > up_bollinger:
+            call_bollinger = 'sell'
+        if fechamento < lower_bollinger:
+            call_bollinger = 'buy'
+    return lower_bollinger, middle_bollinger, up_bollinger, call_bollinger
+
+        

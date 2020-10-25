@@ -11,6 +11,7 @@ def tratamento_acao(stock, brasileira=True):
     ifr = calculo_do_ifr(acao)
     media_movel = calculo_media_movel(acao)
     referencia, referencia_preco = ultimo_topo_e_fundo_da_acao(acao)
+    bollinger_band = bandas_de_bollinger(acao)
     abertura = float(ultima_cotacao[3])
     maxima = float(ultima_cotacao[1])
     minima = float(ultima_cotacao[2])
@@ -29,6 +30,10 @@ def tratamento_acao(stock, brasileira=True):
              '%_last_reference':procentagem_da_referencia,
              'call_hilo': call_hilo,
              'price_hilo':media_hilo,
+             'lower_bollinger_band':bollinger_band[0],
+             'middle_bollinger_band':bollinger_band[1],
+             'upper_bollinger_band':bollinger_band[2],
+             'bollinger_indicator':bollinger_band[3],
 
           },
           "fundamentalist_analysis":{
