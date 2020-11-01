@@ -1,12 +1,12 @@
-from scraping.date_tratament import *
+from scraping.soup_poo import Stock
 from scraping.soup import *
+from scraping.date_tratament import *
 from scraping.scraping_stock import *
-from requests import get
-from bs4 import BeautifulSoup
-import time
-import requests
 
+#------------------------
+# Testando POO 
 
-retorno = bandas_de_bollinger(soup_url('mu',brasileira=False))
-print(retorno)
+# acao = Stock('movi3', brasileira=True)
+# retornoa = acao.tratamento_final()
+# print(retornoa)
 

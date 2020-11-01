@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_restful import Api, Resource
-from scraping.scraping_stock import tratamento_acao
+from scraping.soup_poo import Stock
 
 
 app = Flask(__name__)
@@ -17,13 +17,17 @@ api.add_resource(home,'/')
 class get_stock(Resource):
     def get(self, stock):
         self.stock = stock
-        return jsonify(tratamento_acao(stock, brasileira=True))
+        acao = Stock(stock, brasileira=True)
+        acaobr = acao.tratamento_final()
+        return jsonify(acaobr)
 api.add_resource(get_stock,'/br/<string:stock>')
 
 class get_usa_stock(Resource):
     def get(self, stock):
         self.stock = stock
-        return jsonify(tratamento_acao(stock, brasileira=False))
+        acao = Stock(stock, brasileira=False)
+        acaousa = acao.tratamento_final()
+        return jsonify(acaousa)
 api.add_resource(get_usa_stock,'/usa/<string:stock>')
 
 
