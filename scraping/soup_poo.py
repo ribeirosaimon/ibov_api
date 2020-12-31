@@ -158,6 +158,7 @@ class Stock:
 
     def tratamento_final(self):
         acao = self.inicializando()
+        cotacao_ultimo_dia = acao[1]
         ultima_cotacao = acao[0]
         hilo = self.indicador_hightlow(acao)
         media_hilo = hilo[1]
@@ -200,6 +201,7 @@ class Stock:
                 "adj_close":preco_atual,
                 "vol":volume,
                 "avg_vol":volume_medio,
+                "last_day_price":float(cotacao_ultimo_dia[0])
             }
         }
         }
